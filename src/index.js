@@ -157,11 +157,14 @@ function willLive(row, col) {
 }
 
 function generateBoardState(liveFunc) {
+  let newBoard = Array.from({ length: 50 }, () => Array.from({ length: 50 }, () => false));
   for (let i=0; i <= board.length - 1; i++) {
     for (let j=0; j <= board[i].length - 1; j++) {
-      board[i][j] = liveFunc(i, j);
+      // board[i][j] = liveFunc(i, j);
+      newBoard[i][j] = liveFunc(i, j);
     }
   }
+  board = newBoard
 }
 
 function tick() {
