@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@fastly/js-compute": "^0.7.0",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "svgo": "^3.0.2",
+    "url": "^0.11.0"
+  },
+  "scripts": {
+    "build": "js-compute-runtime src/index.js",
+    "deploy": "npm run build && fastly compute deploy"
+  },
+  "devDependencies": {
+    "eslint": "^8.29.0"
+  },
+  "type": "module"
+}
