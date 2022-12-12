@@ -12,7 +12,6 @@ async function app(event) {
   let suppliedBoard = params.get('board')
   if (url.pathname === '/gol') {
     let id = event.request.headers.get('Last-Event-ID');
-    // id = id ? huffDeGo(id) : huffDeGo(suppliedBoard)
     id = id ? id : suppliedBoard
     if (id) {
         suppliedBoard = String(id)
@@ -24,7 +23,6 @@ async function app(event) {
     } else {
       randomizeBoard();
     }
-    // id = huffGo(board.map(a=>a.join('')).join(''));
     id = board.map(a=>a.join('')).join('');
     return new Response(new Response(`retry: 1\nid: ${id}\ndata: ${drawBoard()}\n\n`).body.pipeThrough(new CompressionStream("gzip")), {
       headers: {
@@ -34,7 +32,6 @@ async function app(event) {
       }});
   }
   if (url.pathname === '/svg') {
-    // let id = huffDeGo(suppliedBoard)
     let id = suppliedBoard
     if (id) {
         suppliedBoard = String(id)
@@ -50,7 +47,6 @@ async function app(event) {
     return new Response(new Response(drawBoard()).body.pipeThrough(new CompressionStream("gzip")), {
       headers: {
         "Content-Type": "image/svg+xml",
-        // '¿Cache-Control': 'no-cache',
         "Content-Encoding": "gzip",
         ETag: id,
         'Cache-Control': 'max-age=31536000, immutable',
@@ -58,7 +54,6 @@ async function app(event) {
       }});
   }
   if (suppliedBoard) {
-      // suppliedBoard = String(huffDeGo(suppliedBoard))
       suppliedBoard = String(suppliedBoard)
       suppliedBoard = suppliedBoard.match(/.{1,50}/g)
       suppliedBoard = suppliedBoard.map(a => a.match(/.{1,50}/g))
